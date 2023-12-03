@@ -24,7 +24,7 @@ public class TeamService {
 
     private List<Player> getNewTeamPlayers(){
         List<Player> definePlayersInNewTeam = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 11; i++){
             Player playerDefine = new Player();
             playerDefine.setPlayerId(i);
             playerDefine.setPlayerName("player" + Integer.toString(i));

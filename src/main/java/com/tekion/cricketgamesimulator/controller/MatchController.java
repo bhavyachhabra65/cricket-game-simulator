@@ -48,9 +48,9 @@ public class MatchController {
         return elasticSearchService.findByEventNameContaining(eventName);
     }
 
-    @GetMapping("/{matchId}")
-    public Match getMatchDetails(@PathVariable String matchId) {
-        return matchService.getMatchById(matchId);
+    @GetMapping("/{eventId}")
+    public List<Match> getMatchDetails(@PathVariable long eventId) {
+        return matchService.getMatchByEventId(eventId);
     }
 
     @GetMapping("/all")

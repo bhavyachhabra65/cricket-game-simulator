@@ -30,6 +30,11 @@ public class MatchService {
         return matchRepository.findById(matchId).orElse(null);
     }
 
+    public List<Match> getMatchByEventId(long eventId) {
+        return matchRepository.findByEventId(eventId);
+    }
+
+
     private int getRandomBallOutcome(){
         Random random = new Random();
         int outcomeTemp = random.nextInt(10);
@@ -45,17 +50,20 @@ public class MatchService {
 
     private int getRandomWicketType(){
         Random random = new Random();
-        int res = random.nextInt(4);
+        int res = random.nextInt(3);
         return res;
     }
 
-    private ScoreBoard getScoreBoard(int overs, int target){
+    private ScoreBoard getScoreBoard(Team battingTeam, int overs, int target){
         ScoreBoard scoreBoard = new ScoreBoard();
         int totalRuns = 0;
         int totalWickets = 0;
         int oversBowled = 0;
         Random random = new Random();
         List<OverDetails> overDetailsList = new ArrayList<OverDetails>();
+        Queue<Player> playing11Queue = new LinkedList<>(battingTeam.getPlayers());
+        Player onStrike = playing11Queue.poll();
+        Player onNonStrike = playing11Queue.poll();
         outerLoop: for(int over = 0; over < overs; over++){
             OverDetails overDetails = new OverDetails();
             List<BallOutcome> ballsOutcome = new ArrayList<BallOutcome>();
@@ -65,11 +73,17 @@ public class MatchService {
                 BallOutcome ballOutcome = new BallOutcome();
                 //0-5 runs, 6-wide ball, 7-no ball, 8-wicket
                 if(randomBallOutcome < 6) {
+                    if(randomBallOutcome%2 != 0){
+                        Player temp = onStrike;
+                        onStrike = onNonStrike;
+                        onNonStrike = temp;
+                    }
                     ballOutcome.setRunsScored(randomBallOutcome + 1);
                     totalRuns += randomBallOutcome + 1;
                     ballOutcome.setNoBall(false);
                     ballOutcome.setWide(false);
                     ballOutcome.setWicket(false);
+                    ballOutcome.setBatsman(onStrike);
                     if(totalRuns >= target){
                         ballsOutcome.add(ballOutcome);
                         overDetails.setBallOutcomes(ballsOutcome);
@@ -83,6 +97,7 @@ public class MatchService {
                     ballOutcome.setWicket(false);
                     ballOutcome.setRunsScored(1);
                     ballOutcome.setWide(true);
+                    ballOutcome.setBatsman(onStrike);
                     int runScored = random.nextInt(6)+1;
                     totalRuns += runScored;
                     ballOutcome.setRunsScored(runScored);
@@ -99,6 +114,7 @@ public class MatchService {
                     ballOutcome.setWide(false);
                     ballOutcome.setNoBall(true);
                     ballOutcome.setWicket(false);
+                    ballOutcome.setBatsman(onStrike);
                     int runScored = random.nextInt(6)+1;
                     totalRuns += runScored;
                     ballOutcome.setRunsScored(runScored);
@@ -117,18 +133,29 @@ public class MatchService {
                     ballOutcome.setWicket(true);
                     ballOutcome.setNoBall(false);
                     ballOutcome.setWide(false);
+                    ballOutcome.setBatsman(onStrike);
                     int randomWicketType = getRandomWicketType();
                     if(randomWicketType == 0){
+                        int randomPlayerOut = random.nextInt(2);
+                        if(randomPlayerOut == 0 && !playing11Queue.isEmpty()){
+                            onStrike = playing11Queue.poll();
+                        }
+                        else{
+                            onNonStrike = playing11Queue.poll();
+                        }
                         ballOutcome.setWicketType(WicketType.RUN_OUT);
                     }
                     if(randomWicketType == 1){
                         ballOutcome.setWicketType(WicketType.LBW);
+                        onStrike = playing11Queue.poll();
                     }
                     if(randomWicketType == 2){
                         ballOutcome.setWicketType(WicketType.BOWLED);
+                        onStrike = playing11Queue.poll();
                     }
                     if(randomWicketType == 3) {
                         ballOutcome.setWicketType(WicketType.CAUGHT);
+                        onStrike = playing11Queue.poll();
                     }
                 }
                 ballsOutcome.add(ballOutcome);
@@ -143,7 +170,9 @@ public class MatchService {
             overDetails.setBallOutcomes(ballsOutcome);
             overDetailsList.add(overDetails);
             oversBowled += 1;
-
+            Player temp = onStrike;
+            onStrike = onNonStrike;
+            onNonStrike = temp;
         }
         scoreBoard.setOverDetailsList(overDetailsList);
         scoreBoard.setTotalRuns(totalRuns);
@@ -172,8 +201,8 @@ public class MatchService {
             match.setBattingTeam(teamB);
             match.setBowlingTeam(teamA);
         }
-        ScoreBoard scoreBoard1 = getScoreBoard(overs, 999999);
-        ScoreBoard scoreBoard2 = getScoreBoard(overs, scoreBoard1.getTotalRuns()+1);
+        ScoreBoard scoreBoard1 = getScoreBoard(match.getBattingTeam(), overs, 999999);
+        ScoreBoard scoreBoard2 = getScoreBoard(match.getBowlingTeam(), overs, scoreBoard1.getTotalRuns()+1);
         match.setTarget(scoreBoard1.getTotalRuns()+1);
         Team battingTeam = match.getBattingTeam();
         battingTeam.setScoreBoard(scoreBoard1);
