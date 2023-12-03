@@ -8,16 +8,18 @@ public class BallOutcome {
     private WicketType wicketType;
     private boolean isWide;
     private boolean isNoBall;
+    private Player batsman;
 
     public BallOutcome() {
     }
 
-    public BallOutcome(int runsScored, boolean isWicket, WicketType wicketType, boolean isWide, boolean isNoBall) {
+    public BallOutcome(int runsScored, boolean isWicket, WicketType wicketType, boolean isWide, boolean isNoBall, Player batsman) {
         this.runsScored = runsScored;
         this.isWicket = isWicket;
         this.wicketType = wicketType;
         this.isWide = isWide;
         this.isNoBall = isNoBall;
+        this.batsman = batsman;
     }
 
     public int getRunsScored() {
@@ -60,6 +62,14 @@ public class BallOutcome {
         isNoBall = noBall;
     }
 
+    public Player getBatsman() {
+        return batsman;
+    }
+
+    public void setBatsman(Player batsman) {
+        this.batsman = batsman;
+    }
+
     @Override
     public String toString() {
         return "BallOutcome{" +
@@ -68,6 +78,7 @@ public class BallOutcome {
                 ", wicketType=" + wicketType +
                 ", isWide=" + isWide +
                 ", isNoBall=" + isNoBall +
+                ", batsman=" + batsman +
                 '}';
     }
 }
