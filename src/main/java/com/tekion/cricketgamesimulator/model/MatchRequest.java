@@ -4,6 +4,7 @@ public class MatchRequest {
     private String teamA;
     private String teamB;
     private int overs;
+    private String eventName;
 
     // getters and setters
 
@@ -29,5 +30,13 @@ public class MatchRequest {
 
     public void setOvers(int overs) {
         this.overs = overs;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 }

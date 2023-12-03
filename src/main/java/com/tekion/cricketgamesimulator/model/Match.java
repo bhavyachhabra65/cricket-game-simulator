@@ -1,39 +1,42 @@
 package com.tekion.cricketgamesimulator.model;
 
 import com.tekion.cricketgamesimulator.enums.MatchResult;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Document(collection = "match")
 public class Match {
-    private String matchId;
+    @Id
+    private long matchId;
     private int overs;
-    private List<OverDetails> overDetailsList;
     private Team battingTeam;
     private Team bowlingTeam;
-    private ScoreBoard scoreboard;
     private MatchResult matchResult;
-
+    private int target;
+    private long eventId;
+    private String eventName;
 
     public Match() {
     }
 
-    public Match(String matchId, int overs, List<OverDetails> overDetailsList, Team battingTeam, Team bowlingTeam, ScoreBoard scoreboard, MatchResult matchResult, Team teamA, Team teamB) {
+    public Match(long matchId, int overs, Team battingTeam, Team bowlingTeam, MatchResult matchResult, int target, long eventId, String eventName) {
         this.matchId = matchId;
         this.overs = overs;
-        this.overDetailsList = overDetailsList;
         this.battingTeam = battingTeam;
         this.bowlingTeam = bowlingTeam;
-        this.scoreboard = scoreboard;
         this.matchResult = matchResult;
-        this.teamA = teamA;
-        this.teamB = teamB;
+        this.target = target;
+        this.eventId = eventId;
+        this.eventName = eventName;
     }
 
-    public String getMatchId() {
+    public long getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(String matchId) {
+    public void setMatchId(long matchId) {
         this.matchId = matchId;
     }
 
@@ -43,14 +46,6 @@ public class Match {
 
     public void setOvers(int overs) {
         this.overs = overs;
-    }
-
-    public List<OverDetails> getOverDetailsList() {
-        return overDetailsList;
-    }
-
-    public void setOverDetailsList(List<OverDetails> overDetailsList) {
-        this.overDetailsList = overDetailsList;
     }
 
     public Team getBattingTeam() {
@@ -69,14 +64,6 @@ public class Match {
         this.bowlingTeam = bowlingTeam;
     }
 
-    public ScoreBoard getScoreboard() {
-        return scoreboard;
-    }
-
-    public void setScoreboard(ScoreBoard scoreboard) {
-        this.scoreboard = scoreboard;
-    }
-
     public MatchResult getMatchResult() {
         return matchResult;
     }
@@ -85,34 +72,41 @@ public class Match {
         this.matchResult = matchResult;
     }
 
-    public Team getTeamA() {
-        return teamA;
+    public int getTarget() {
+        return target;
     }
 
-    public void setTeamA(Team teamA) {
-        this.teamA = teamA;
+    public void setTarget(int target) {
+        this.target = target;
     }
 
-    public Team getTeamB() {
-        return teamB;
+    public long getEventId() {
+        return eventId;
     }
 
-    public void setTeamB(Team teamB) {
-        this.teamB = teamB;
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     @Override
     public String toString() {
         return "Match{" +
-                "matchId='" + matchId + '\'' +
+                "matchId=" + matchId +
                 ", overs=" + overs +
-                ", overDetailsList=" + overDetailsList +
                 ", battingTeam=" + battingTeam +
                 ", bowlingTeam=" + bowlingTeam +
-                ", scoreboard=" + scoreboard +
                 ", matchResult=" + matchResult +
-                ", teamA=" + teamA +
-                ", teamB=" + teamB +
+                ", target=" + target +
+                ", eventId=" + eventId +
+                ", eventName='" + eventName + '\'' +
                 '}';
     }
 }

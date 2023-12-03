@@ -2,7 +2,7 @@ package com.tekion.cricketgamesimulator.enums;
 
 public enum MatchResult {
     ONGOING,
-    WON,
-    LOST,
+    TEAM_A_WON,
+    TEAM_B_WON,
     DRAW
 }

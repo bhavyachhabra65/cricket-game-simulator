@@ -11,13 +11,11 @@ public class ScoreBoard {
     public ScoreBoard() {
     }
 
-    public ScoreBoard(int totalRuns, int totalWickets, int oversBowled, List<OverDetails> overDetailsList, Team battingTeam, Team bowlingTeam) {
+    public ScoreBoard(int totalRuns, int totalWickets, int oversBowled, List<OverDetails> overDetailsList) {
         this.totalRuns = totalRuns;
         this.totalWickets = totalWickets;
         this.oversBowled = oversBowled;
         this.overDetailsList = overDetailsList;
-        this.battingTeam = battingTeam;
-        this.bowlingTeam = bowlingTeam;
     }
 
     public int getTotalRuns() {
@@ -52,22 +50,6 @@ public class ScoreBoard {
         this.overDetailsList = overDetailsList;
     }
 
-    public Team getBattingTeam() {
-        return battingTeam;
-    }
-
-    public void setBattingTeam(Team battingTeam) {
-        this.battingTeam = battingTeam;
-    }
-
-    public Team getBowlingTeam() {
-        return bowlingTeam;
-    }
-
-    public void setBowlingTeam(Team bowlingTeam) {
-        this.bowlingTeam = bowlingTeam;
-    }
-
     @Override
     public String toString() {
         return "ScoreBoard{" +
@@ -75,8 +57,6 @@ public class ScoreBoard {
                 ", totalWickets=" + totalWickets +
                 ", oversBowled=" + oversBowled +
                 ", overDetailsList=" + overDetailsList +
-                ", battingTeam=" + battingTeam +
-                ", bowlingTeam=" + bowlingTeam +
                 '}';
     }
 }

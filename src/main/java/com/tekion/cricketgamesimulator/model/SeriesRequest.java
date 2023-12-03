@@ -1,26 +1,27 @@
 package com.tekion.cricketgamesimulator.model;
 
 public class SeriesRequest {
-    private Team teamA;
-    private Team teamB;
+    private String teamA;
+    private String teamB;
     private int oversPerMatch;
     private int numberOfMatches;
+    private String eventName;
 
     // getters and setters
 
-    public Team getTeamA() {
+    public String getTeamA() {
         return teamA;
     }
 
-    public void setTeamA(Team teamA) {
+    public void setTeamA(String teamA) {
         this.teamA = teamA;
     }
 
-    public Team getTeamB() {
+    public String getTeamB() {
         return teamB;
     }
 
-    public void setTeamB(Team teamB) {
+    public void setTeamB(String teamB) {
         this.teamB = teamB;
     }
 
@@ -38,5 +39,13 @@ public class SeriesRequest {
 
     public void setNumberOfMatches(int numberOfMatches) {
         this.numberOfMatches = numberOfMatches;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 }
