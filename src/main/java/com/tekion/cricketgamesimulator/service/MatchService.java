@@ -194,22 +194,22 @@ public class MatchService {
         Random random = new Random();
         int result = random.nextInt(2);
         if(result == 0){
-            match.setBattingTeam(teamA);
-            match.setBowlingTeam(teamB);
+            match.setChasingChampions(teamA);
+            match.setDefendingDynamos(teamB);
         }
         else{
-            match.setBattingTeam(teamB);
-            match.setBowlingTeam(teamA);
+            match.setChasingChampions(teamB);
+            match.setDefendingDynamos(teamA);
         }
-        ScoreBoard scoreBoard1 = getScoreBoard(match.getBattingTeam(), overs, 999999);
-        ScoreBoard scoreBoard2 = getScoreBoard(match.getBowlingTeam(), overs, scoreBoard1.getTotalRuns()+1);
+        ScoreBoard scoreBoard1 = getScoreBoard(match.getChasingChampions(), overs, 999999);
+        ScoreBoard scoreBoard2 = getScoreBoard(match.getDefendingDynamos(), overs, scoreBoard1.getTotalRuns()+1);
         match.setTarget(scoreBoard1.getTotalRuns()+1);
-        Team battingTeam = match.getBattingTeam();
-        battingTeam.setScoreBoard(scoreBoard1);
-        match.setBattingTeam(battingTeam);
-        Team bowlingTeam = match.getBowlingTeam();
-        bowlingTeam.setScoreBoard(scoreBoard2);
-        match.setBowlingTeam(bowlingTeam);
+        Team chasingChampions = match.getChasingChampions();
+        chasingChampions.setScoreBoard(scoreBoard1);
+        match.setChasingChampions(chasingChampions);
+        Team defendingDynamos = match.getDefendingDynamos();
+        defendingDynamos.setScoreBoard(scoreBoard2);
+        match.setDefendingDynamos(defendingDynamos);
         if(scoreBoard1.getTotalRuns() > scoreBoard2.getTotalRuns() && result==0){
             match.setMatchResult(MatchResult.TEAM_A_WON);
         }
