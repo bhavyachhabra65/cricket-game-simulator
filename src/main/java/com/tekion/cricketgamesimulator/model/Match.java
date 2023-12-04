@@ -11,8 +11,12 @@ public class Match {
     @Id
     private long matchId;
     private int overs;
-    private Team battingTeam;
-    private Team bowlingTeam;
+
+    //Team batting in first innings
+    private Team chasingChampions;
+
+    //Team batting in second inning
+    private Team defendingDynamos;
     private MatchResult matchResult;
     private int target;
     private long eventId;
@@ -21,11 +25,11 @@ public class Match {
     public Match() {
     }
 
-    public Match(long matchId, int overs, Team battingTeam, Team bowlingTeam, MatchResult matchResult, int target, long eventId, String eventName) {
+    public Match(long matchId, int overs, Team chasingChampions, Team defendingDynamos, MatchResult matchResult, int target, long eventId, String eventName) {
         this.matchId = matchId;
         this.overs = overs;
-        this.battingTeam = battingTeam;
-        this.bowlingTeam = bowlingTeam;
+        this.chasingChampions = chasingChampions;
+        this.defendingDynamos = defendingDynamos;
         this.matchResult = matchResult;
         this.target = target;
         this.eventId = eventId;
@@ -48,20 +52,20 @@ public class Match {
         this.overs = overs;
     }
 
-    public Team getBattingTeam() {
-        return battingTeam;
+    public Team getChasingChampions() {
+        return chasingChampions;
     }
 
-    public void setBattingTeam(Team battingTeam) {
-        this.battingTeam = battingTeam;
+    public void setChasingChampions(Team chasingChampions) {
+        this.chasingChampions = chasingChampions;
     }
 
-    public Team getBowlingTeam() {
-        return bowlingTeam;
+    public Team getDefendingDynamos() {
+        return defendingDynamos;
     }
 
-    public void setBowlingTeam(Team bowlingTeam) {
-        this.bowlingTeam = bowlingTeam;
+    public void setDefendingDynamos(Team defendingDynamos) {
+        this.defendingDynamos = defendingDynamos;
     }
 
     public MatchResult getMatchResult() {
@@ -101,8 +105,8 @@ public class Match {
         return "Match{" +
                 "matchId=" + matchId +
                 ", overs=" + overs +
-                ", battingTeam=" + battingTeam +
-                ", bowlingTeam=" + bowlingTeam +
+                ", chasingChampions=" + chasingChampions +
+                ", defendingDynamos=" + defendingDynamos +
                 ", matchResult=" + matchResult +
                 ", target=" + target +
                 ", eventId=" + eventId +

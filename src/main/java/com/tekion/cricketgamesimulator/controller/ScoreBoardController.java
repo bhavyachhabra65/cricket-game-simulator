@@ -16,12 +16,11 @@ public class ScoreBoardController {
 
     @GetMapping("/{matchId}")
     public List<ScoreBoard> getScoreBoardDetails(@PathVariable String matchId) {
-        ScoreBoard scoreBoardBattingTeam = matchService.getMatchById(matchId).getBattingTeam().getScoreBoard();
-        ScoreBoard scoreBoardBallingTeam = matchService.getMatchById(matchId).getBowlingTeam().getScoreBoard();
+        ScoreBoard scoreBoardChasingTeam = matchService.getMatchById(matchId).getChasingChampions().getScoreBoard();
+        ScoreBoard scoreBoardDefendingTeam = matchService.getMatchById(matchId).getDefendingDynamos().getScoreBoard();
         List<ScoreBoard> scoreBoards = new ArrayList<>();
-        scoreBoards.add(scoreBoardBattingTeam);
-        scoreBoards.add(scoreBoardBallingTeam);
+        scoreBoards.add(scoreBoardChasingTeam);
+        scoreBoards.add(scoreBoardDefendingTeam);
         return scoreBoards;
     }
 }
-
