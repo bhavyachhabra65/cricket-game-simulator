@@ -4,7 +4,6 @@ import com.tekion.cricketgamesimulator.model.*;
 import com.tekion.cricketgamesimulator.service.EventNameElasticSearchService;
 import com.tekion.cricketgamesimulator.service.KafkaProducerService;
 import com.tekion.cricketgamesimulator.service.MatchService;
-import com.tekion.cricketgamesimulator.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,6 @@ public class MatchController {
 
     @Autowired
     private MatchService matchService;
-
-    @Autowired
-    private TeamService teamService;
 
     @Autowired
     private KafkaProducerService kafkaProducerService;
@@ -44,18 +40,18 @@ public class MatchController {
     }
 
     @GetMapping("/contains/{eventName}")
-    public Iterable<EventNameElasticSearch> getEventNameContainingStringInElasticsearch(@PathVariable String eventName) {
-        return elasticSearchService.findByEventNameContaining(eventName);
+    public ResponseEntity<Iterable<EventNameElasticSearch>> getEventNameContainingStringInElasticsearch(@PathVariable String eventName) {
+        return ResponseEntity.ok(elasticSearchService.findByEventNameContaining(eventName));
     }
 
     @GetMapping("/{eventId}")
-    public List<Match> getMatchDetails(@PathVariable long eventId) {
-        return matchService.getMatchByEventId(eventId);
+    public ResponseEntity<List<Match>> getMatchDetails(@PathVariable long eventId) {
+        return ResponseEntity.ok(matchService.getMatchByEventId(eventId));
     }
 
     @GetMapping("/all")
-    public List<Match> getAllMatches() {
-        return matchService.getAllMatches();
+    public ResponseEntity<List<Match>> getAllMatches() {
+        return ResponseEntity.ok(matchService.getAllMatches());
     }
 
 }
