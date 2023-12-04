@@ -1,7 +1,6 @@
 package com.tekion.cricketgamesimulator.service;
 
 import com.tekion.cricketgamesimulator.model.EventNameElasticSearch;
-import com.tekion.cricketgamesimulator.model.Match;
 import com.tekion.cricketgamesimulator.repository.EventNameElasticSearchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
